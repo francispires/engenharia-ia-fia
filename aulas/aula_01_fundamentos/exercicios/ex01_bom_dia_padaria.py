@@ -19,14 +19,21 @@ def montar_mensagens(nome_cliente: str, pao_do_dia: str) -> list[Mensagem]:
     1) system: diga ao modelo que ele é o atendente da Padaria Peter Pão;
     2) user: um pedido de bom-dia que contenha o nome do cliente E o pão do dia.
     """
-    # TODO: substitua a linha abaixo pela lista de mensagens
-    raise NotImplementedError("Crie Mensagem('system', ...) e Mensagem('user', ...) e devolva numa lista.")
-
+    return [
+        Mensagem(
+            "system",
+            "Você é o atendente da Padaria Peter Pão."
+        ),
+        Mensagem(
+            "user",
+            f"Dê bom-dia ao cliente {nome_cliente} e informe que o pão do dia é {pao_do_dia}."
+        )
+    ]
 
 def dar_bom_dia(llm: LLMPort, nome_cliente: str) -> str:
     """Chame o llm com as mensagens e devolva só o texto da resposta."""
-    # TODO: use montar_mensagens(...) e llm.responder(...)
-    raise NotImplementedError("Use llm.responder(montar_mensagens(...)).texto")
+    mensagens = montar_mensagens(nome_cliente, "Pão francês")
+    return llm.responder(mensagens).texto
 
 
 def checar_mensagens():
