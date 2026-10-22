@@ -16,13 +16,12 @@ class PirataLLM:
     """Adaptador que responde: 'Arrr! <pergunta do usuário>, marujo!'"""
 
     def responder(self, mensagens: list[Mensagem], *, esforco: str | None = None) -> RespostaLLM:
-        # TODO: pegue o conteúdo da ÚLTIMA mensagem e devolva um RespostaLLM
-        #       com texto = f"Arrr! {conteudo}, marujo!" e modelo = "pirata"
-        raise NotImplementedError("Devolva RespostaLLM(texto=..., modelo='pirata').")
+        conteudo = mensagens[-1].conteudo
+        texto = f"Arrr! {conteudo}, marujo!"
+        return RespostaLLM(texto=texto, modelo="pirata")
 
     def transmitir(self, mensagens: list[Mensagem]):
-        # TODO: devolva (yield) o texto da resposta palavra por palavra
-        raise NotImplementedError("Use: for palavra in self.responder(mensagens).texto.split(): yield palavra")
+        yield from self.responder(mensagens).texto.split()
 
     def responder_estruturado(self, mensagens, esquema):
         raise NotImplementedError("Pirata não preenche formulário!")
